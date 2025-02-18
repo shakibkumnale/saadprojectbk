@@ -10,7 +10,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: process.env.CORS || 'https://quizmaster-seven.vercel.app' || 'http://localhost:3000',
+    origin: process.env.CORS || 'https://mahndi.vercel.app/',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   })

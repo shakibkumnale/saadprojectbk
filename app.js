@@ -298,7 +298,7 @@ app.get("/admin/finished-requests", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
- app.get("/", (req, res) => {
+ app.get("/api", (req, res) => {
   res.send("Welcome to the Payment API");});
 app.get('/*', (req, res) => {
   res.status(404).send("404, Page Not Found");

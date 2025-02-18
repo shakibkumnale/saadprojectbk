@@ -10,8 +10,8 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: process.env.CORS || 'https://mahndi.vercel.app',
-    credentials: true,
+    origin:'https://mahndi.vercel.app',
+  
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   })
 );

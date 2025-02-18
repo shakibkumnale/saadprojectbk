@@ -8,18 +8,13 @@ const bodyParser = require("body-parser");
 const app = express();
 
 // Middleware
-const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-}));
-
+app.use(
+  cors({
+    origin: process.env.CORS || 'https://quizmaster-seven.vercel.app' || 'http://localhost:3000',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  })
+);
 app.use(bodyParser.json());
 
 // MongoDB connection strings from .env
@@ -66,6 +61,7 @@ const Payment = paymentDBConnection.model(
   paymentSchema,
   "paymentInfo"
 );
+
 
 // Register endpoint
 app.post("/register", async (req, res) => {
@@ -301,6 +297,11 @@ app.get("/admin/finished-requests", async (req, res) => {
     console.error("❌ Error fetching finished requests:", err);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
+});
+ app.get("/", (req, res) => {
+  res.send("Welcome to the Payment API");});
+app.get('/*', (req, res) => {
+  res.status(404).send("404, Page Not Found");
 });
 
 // Start the server

@@ -8,11 +8,18 @@ const bodyParser = require("body-parser");
 const app = express();
 
 // Middleware
+const allowedOrigins = ['https://mahndi.vercel.app', 'https://henna-bliss.vercel.app', 'http://localhost:3000']; // Frontend URLs
 app.use(
   cors({
-    origin:'https://mahndi.vercel.app',
-  
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true,
   })
 );
 app.use(bodyParser.json());
